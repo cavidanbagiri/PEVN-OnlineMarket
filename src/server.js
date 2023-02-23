@@ -8,6 +8,10 @@ require('./models');
 // Import Routers
 const { userRouter } = require('./routes'); 
 
+// Create Middlewares
+app.use(express.json());
+
+// Create Router 
 app.use('/user',userRouter);
 
 
