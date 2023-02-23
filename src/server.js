@@ -2,12 +2,13 @@
 const express = require('express');
 const app = express();
 
-//const model = require('./models');
+// Activate Model
+require('./models');
 
-app.get('/',(req, res)=>{
-    res.send('Hello world');
-})
+// Import Routers
+const { userRouter } = require('./routes'); 
 
+app.use('/user',userRouter);
 
 
 app.listen(3000, ()=>{

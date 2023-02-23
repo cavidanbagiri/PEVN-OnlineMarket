@@ -1,5 +1,8 @@
-const { Sequelize } = require("sequelize");
+const { Sequelize, Model, DataTypes } = require("sequelize");
 const dbConfig = require("../config/db");
+
+// Import Models
+const UserModel = require('./model.users');
 
 const sequelize = new Sequelize(
   dbConfig.Database,
@@ -34,6 +37,7 @@ db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
 // Adding Models
+db.UserModel = UserModel(sequelize, DataTypes, Model);
 
 // Sync sequelize;
 db.sequelize
