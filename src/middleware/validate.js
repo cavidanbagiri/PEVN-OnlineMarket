@@ -7,9 +7,11 @@ const validateMiddleware = (schema) => (req, res, next) => {
 
   if (error) {
     res.json({ validationError: error.details[0].message });
+    return;
   }
 
-  return;
+  next();
+
 };
 
 module.exports = validateMiddleware;
