@@ -1,7 +1,6 @@
 const { hashPassword } = require("../helpers/hash_password");
 const UserService = require("../services/service.user");
 
-const AppError = require("../exceptions/AppError");
 const tryCatch = require("../utils/tryCatch");
 
 class UserController {
@@ -13,6 +12,20 @@ class UserController {
       await UserService.registerUser(user_data)
         .then((data) => {
           res.send(data.dataValues);
+        })
+        .catch((err) => {
+          return next(err);
+        })
+    );
+  }
+  //Login User
+  static async loginUser(req, res, next) {
+    const user_data = req.body;
+    user_data.password = await hashPassword(user_data.password);
+    tryCatch(
+      await UserService.loginUser(user_data)
+        .then((user) => {
+          res.send(user);
         })
         .catch((err) => {
           return next(err);

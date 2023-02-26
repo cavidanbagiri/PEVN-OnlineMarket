@@ -1,12 +1,11 @@
 const AppError = require("../exceptions/AppError");
 
 const errorHandler = async (err, req, res, next) => {
-    console.log('Global Error Handler');
+  console.log('Error : ',err);
   if (err instanceof AppError) {
-    console.log("Yes instance of AppError");
-    return res.status(err.statusCode).json({ err: err.message });
+    return res.status(err.statusCode).json({ err: err });
   }
-  return res.status(err.statusCode).json({ error: " Error Happen" });
+  return res.status(400).json({ error: err });
 };
 
 module.exports = errorHandler;
