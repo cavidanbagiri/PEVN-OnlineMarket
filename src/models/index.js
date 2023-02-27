@@ -3,6 +3,7 @@ const dbConfig = require("../config/db");
 
 // Import Models
 const UserModel = require('./model.users');
+const ProductModel = require('./model.product');
 
 const sequelize = new Sequelize(
   dbConfig.Database,
@@ -38,6 +39,7 @@ db.sequelize = sequelize;
 
 // Adding Models
 db.UserModel = UserModel(sequelize, DataTypes, Model);
+db.ProductModel = ProductModel(sequelize, DataTypes, Model);
 
 // Sync sequelize;
 db.sequelize

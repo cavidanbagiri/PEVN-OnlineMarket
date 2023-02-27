@@ -1,25 +1,29 @@
-
-const express = require('express');
+const express = require("express");
 const app = express();
 
+
+// Import Dotenv
+require("dotenv").config();
+
 // Import Error Handler Middleware
-const errorHandler = require('./middleware/errorHandler');
+const errorHandler = require("./middleware/errorHandler");
 
 // Activate Model
-require('./models');
+require("./models");
 
 // Import Routers
-const { userRouter } = require('./routes'); 
+const { userRouter, productRouter } = require("./routes");
 
 // Create Middlewares
 app.use(express.json());
 
-// Create Router 
-app.use('/user',userRouter);
+// Create Router
+app.use("/user", userRouter);
+app.use("/products", productRouter);
 
 // Handle Errors
 app.use(errorHandler);
 
-app.listen(3000, ()=>{
-    console.log('Listening 3000 Port');
+app.listen(process.env.PORT, () => {
+  console.log("Listening  Port", process.env.PORT);
 });
