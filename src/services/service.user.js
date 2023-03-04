@@ -1,5 +1,6 @@
 const db = require("../models");
 const UserModel = db.UserModel;
+const CommentModel = db.CommentModel;
 
 class UserService {
   // User Registration
@@ -15,6 +16,17 @@ class UserService {
     });
     return find_user.dataValues;
   }
+
+  static async addComments(comment_text) {
+    const addingComment = await CommentModel.create({
+      comment_text:"This product is very good. Recomended",
+      userId: 15,
+      productId: 2
+    });
+
+    return addingComment;
+  }
+
 }
 
 module.exports = UserService;

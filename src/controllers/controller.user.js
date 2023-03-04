@@ -32,6 +32,19 @@ class UserController {
         })
     );
   }
+  // Add Comment
+  static async addComment(req, res, next) {
+    tryCatch(
+      await UserService.addComments("somes")
+        .then((respond) => {
+          res.send(respond);
+        })
+        .catch((err) => {
+          console.log("Adding Comments Error");
+          return next(err);
+        })
+    );
+  }
 }
 
 module.exports = UserController;

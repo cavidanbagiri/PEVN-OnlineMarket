@@ -13,4 +13,6 @@ router.post(
 
 router.post("/login",UserController.loginUser);
 
+router.post("/addcomment", UserController.addComment);
+
 module.exports = router;

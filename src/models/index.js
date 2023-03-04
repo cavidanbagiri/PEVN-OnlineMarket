@@ -6,6 +6,9 @@ const UserModel = require('./model.users');
 const ProductModel = require('./model.product');
 const CategoryModel = require('./model.category');
 const CommentModel = require('./model.comment');
+const BasketModel = require('./model.basket');
+const FavoriteModel = require('./model.favorites');
+const OrderModel = require('./model.order');
 
 const sequelize = new Sequelize(
   dbConfig.Database,
@@ -44,15 +47,19 @@ db.UserModel = UserModel(sequelize, DataTypes, Model);
 db.ProductModel = ProductModel(sequelize, DataTypes, Model);
 db.CategoryModel = CategoryModel(sequelize, DataTypes, Model);
 db.CommentModel = CommentModel(sequelize, DataTypes, Model);
+db.BasketModel = BasketModel(sequelize, DataTypes, Model);
+db.FavoriteModel = FavoriteModel(sequelize, DataTypes, Model);
+db.OrderModel = OrderModel(sequelize, DataTypes, Model);
 
-// Create Relationsship
+// ******************************************* Create Relationsship **************************************** //
 
+// Product Category Model One To One
 db.CategoryModel.hasOne(db.ProductModel,{
   foreignKey:'categoryId',
 });
 db.ProductModel.belongsTo(db.CategoryModel);
 
-
+// Comment Model One To Many
 db.UserModel.hasMany(db.CommentModel,{
   foreignKey: 'userId'
 });
@@ -64,25 +71,19 @@ db.ProductModel.hasMany(db.CommentModel,{
 db.CommentModel.belongsTo(db.ProductModel);
 
 
+// Basket Model Many to Many
+db.UserModel.belongsToMany(db.ProductModel, {through: db.BasketModel});
+db.ProductModel.belongsToMany(db.UserModel, {through: db.BasketModel});
 
-// (somes = async () =>{
-  
-// await db.ProductModel.drop();
-// await db.LaptopModel.drop();
-// await db.CategoryModel.drop();
-// })();
 
-// await db.ProductModel.drop();
-// db.ComputerModel.hasOne(db.ComputerModel,{
-//   foreignKey:'computerId',
-//   as: db.ProductModel
-// });
-// db.ProductModel.belongsTo(db.ComputerModel,{
-//   foreignKey:'computerId',
-//   as: db.ProductModel
-// });
+db.UserModel.belongsToMany(db.ProductModel, {through: db.FavoriteModel});
+db.ProductModel.belongsToMany(db.UserModel, {through: db.FavoriteModel});
 
-// Sync sequelize;
+
+db.UserModel.belongsToMany(db.ProductModel, {through: db.OrderModel});
+db.ProductModel.belongsToMany(db.UserModel, {through: db.OrderModel});
+
+// // Sync sequelize;
 db.sequelize
   .sync({ force: false })
   .then((_) => {
@@ -91,6 +92,8 @@ db.sequelize
   .catch((err) => {
     console.log("Sync Doesnt Work");
   });
+
+
 
 // Export db
 module.exports = db;
