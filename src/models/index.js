@@ -4,6 +4,7 @@ const dbConfig = require("../config/db");
 // Import Models
 const UserModel = require('./model.users');
 const ProductModel = require('./model.product');
+const CategoryModel = require('./model.category');
 
 const sequelize = new Sequelize(
   dbConfig.Database,
@@ -40,6 +41,32 @@ db.sequelize = sequelize;
 // Adding Models
 db.UserModel = UserModel(sequelize, DataTypes, Model);
 db.ProductModel = ProductModel(sequelize, DataTypes, Model);
+db.CategoryModel = CategoryModel(sequelize, DataTypes, Model);
+
+// Create Relationsship
+
+db.CategoryModel.hasOne(db.ProductModel,{
+  foreignKey:'categoryId',
+});
+db.ProductModel.belongsTo(db.CategoryModel);
+
+
+// (somes = async () =>{
+  
+// await db.ProductModel.drop();
+// await db.LaptopModel.drop();
+// await db.CategoryModel.drop();
+// })();
+
+// await db.ProductModel.drop();
+// db.ComputerModel.hasOne(db.ComputerModel,{
+//   foreignKey:'computerId',
+//   as: db.ProductModel
+// });
+// db.ProductModel.belongsTo(db.ComputerModel,{
+//   foreignKey:'computerId',
+//   as: db.ProductModel
+// });
 
 // Sync sequelize;
 db.sequelize

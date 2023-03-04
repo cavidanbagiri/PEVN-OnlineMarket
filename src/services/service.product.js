@@ -2,6 +2,8 @@
 const db = require('../models');
 const ProductModel = db.ProductModel;
 
+const CategoryModel = db.CategoryModel;
+
 class ProductService{
     
     // Get All Products
@@ -11,8 +13,9 @@ class ProductService{
 
     // Insert Into Products
     static async addProducts(datas){
-        console.log('from service : ',datas[0]);
-        const newProduct = await ProductModel.create(datas[0]);
+
+        datas[2].categoryId = 2;
+        const newProduct = await ProductModel.create(datas[2]);
         return newProduct;
     }
 

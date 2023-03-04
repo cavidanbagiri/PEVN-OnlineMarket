@@ -25,11 +25,15 @@ module.exports = (sequelize, DataTypes, Model) => {
         raiting:{
             type: DataTypes.FLOAT,
             allowNull: true,
-            defaultValue: 0
+            defaultValue: 4
         },
         instock:{
             type: DataTypes.INTEGER,
-            defaultValue: 0
+            defaultValue: 11
+        },
+        image:{
+            type: DataTypes.STRING,
+            allowNull: true
         }
     },
     {
