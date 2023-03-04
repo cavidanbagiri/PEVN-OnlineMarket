@@ -5,6 +5,7 @@ const dbConfig = require("../config/db");
 const UserModel = require('./model.users');
 const ProductModel = require('./model.product');
 const CategoryModel = require('./model.category');
+const CommentModel = require('./model.comment');
 
 const sequelize = new Sequelize(
   dbConfig.Database,
@@ -42,6 +43,7 @@ db.sequelize = sequelize;
 db.UserModel = UserModel(sequelize, DataTypes, Model);
 db.ProductModel = ProductModel(sequelize, DataTypes, Model);
 db.CategoryModel = CategoryModel(sequelize, DataTypes, Model);
+db.CommentModel = CommentModel(sequelize, DataTypes, Model);
 
 // Create Relationsship
 
@@ -49,6 +51,18 @@ db.CategoryModel.hasOne(db.ProductModel,{
   foreignKey:'categoryId',
 });
 db.ProductModel.belongsTo(db.CategoryModel);
+
+
+db.UserModel.hasMany(db.CommentModel,{
+  foreignKey: 'userId'
+});
+db.CommentModel.belongsTo(db.UserModel);
+
+db.ProductModel.hasMany(db.CommentModel,{
+  foreignKey: 'productId'
+});
+db.CommentModel.belongsTo(db.ProductModel);
+
 
 
 // (somes = async () =>{
