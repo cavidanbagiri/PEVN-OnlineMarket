@@ -14,6 +14,7 @@ class UserService {
     const find_user = await UserModel.findOne({
       where:{email:user_data.email, password:user_data.password }
     });
+    console.log('find user is : ', find_user);
     return find_user.dataValues;
   }
 
