@@ -24,7 +24,7 @@ app.use(cors());
 
 // Create Router
 app.use("/user", userRouter);
-app.use("/products", productRouter);
+app.use("/catalog", productRouter);
 
 // Handle Errors
 app.use(errorHandler);

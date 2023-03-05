@@ -9,12 +9,13 @@ class ProductController {
     // Get All Products
     static async getProducts(req, res, next){
         
-        tryCatch(await ProductService.getProducts().then((products)=>{
+        let catalog_name = req.params.catalog_name;
 
-            console.log('products : ',products);
+        tryCatch(await ProductService.getProducts(catalog_name).then((products)=>{
+            res.send(products); 
 
         }).catch((err)=>{
-
+            return next(err);
         }));
 
     }

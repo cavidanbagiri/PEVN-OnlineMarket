@@ -7,8 +7,16 @@ const CategoryModel = db.CategoryModel;
 class ProductService{
     
     // Get All Products
-    static async getProducts(){
-        console.log('Get Prodiuct');
+    static async getProducts(catalog_name){
+
+        // First Find Catalog Name From Categories Table
+        const find_catalog = await CategoryModel.findOne({where:{name:catalog_name}});
+
+        // Find All Product Where Catalogid is findCatalog id
+        const products = await ProductModel.findAll({where:{'categoryId':find_catalog.dataValues.id}});
+        // console.log(products);
+        // Return Finding Products
+        return products;
     }
 
     // Insert Into Products
