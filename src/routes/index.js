@@ -1,8 +1,8 @@
 
 const userRouter = require('./route.user');
-const productRouter = require('./route.product');
+const catalogRouter = require('./route.catalog');
 
 module.exports = {
     userRouter,
-    productRouter
+    catalogRouter: catalogRouter
 }
