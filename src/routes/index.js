@@ -5,6 +5,6 @@ const productRouter = require('./route.product');
 
 module.exports = {
     userRouter,
-    catalogRouter: catalogRouter,
+    catalogRouter,
     productRouter,
 }

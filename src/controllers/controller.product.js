@@ -8,11 +8,8 @@ class ProductController {
     static async getProductWithId(req, res, next) {
 
         const id = req.params.id;
-
         tryCatch(await ProductService.getProductWithId(id).then((respond)=>{
-            console.log('Product : ',respond);
             res.send(respond);
-
         }).catch((err)=>{
             console.log('find product with id Error ');
             return next(err);
