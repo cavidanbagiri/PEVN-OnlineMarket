@@ -14,7 +14,7 @@ const errorHandler = require("./middleware/errorHandler");
 require("./models");
 
 // Import Routers
-const { userRouter, catalogRouter } = require("./routes");
+const { userRouter, catalogRouter, productRouter } = require("./routes");
 
 // Create Middlewares
 app.use(express.json());
@@ -25,6 +25,7 @@ app.use(cors());
 // Create Router
 app.use("/user", userRouter);
 app.use("/catalog", catalogRouter);
+app.use('/product',productRouter);
 
 // Handle Errors
 app.use(errorHandler);
