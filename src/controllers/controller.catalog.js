@@ -1,4 +1,4 @@
-const ProductService = require("../services/service.catalog");
+const CatalogService = require("../services/service.catalog");
 const tryCatch = require("../utils/tryCatch");
 
 const fs = require("fs");
@@ -9,7 +9,7 @@ class ProductController {
     let catalog_name = req.params.catalog_name;
 
     tryCatch(
-      await ProductService.getProducts(catalog_name)
+      await CatalogService.getProducts(catalog_name)
         .then((products) => {
           res.send(products);
         })
@@ -29,7 +29,7 @@ class ProductController {
       }
       const datas = JSON.parse(data);
       tryCatch(
-        await ProductService.addProducts(datas)
+        await CatalogService.addProducts(datas)
           .then((respond) => {
             res.send(respond);
           })

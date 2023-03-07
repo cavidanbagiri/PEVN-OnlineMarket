@@ -4,7 +4,7 @@ const ProductModel = db.ProductModel;
 
 const CategoryModel = db.CategoryModel;
 
-class ProductService{
+class CatalogService{
     
     // Get All Products
     static async getProducts(catalog_name){
@@ -29,4 +29,4 @@ class ProductService{
 
 }
 
-module.exports = ProductService;
+module.exports = CatalogService;
