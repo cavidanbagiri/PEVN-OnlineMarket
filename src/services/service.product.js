@@ -6,9 +6,29 @@ const FavoritesModel = db.FavoriteModel;
 
 class ProductService {
   static async getProductWithId(product_id) {
+    // const temp_pro = await db.sequelize.query(
+    //   "select *, p.id from products p " +
+    //     'left JOIN user_comments c ON "productId"=$1 ' +
+    //     'left JOIN users u ON "userId"=u.id ' +
+    //     "where p.id = $1",
+    //   { bind: [product_id] }
+    // );  
+
+    // temp_pro[0][0].comments = [];
+
+    // for (let i of temp_pro[0]) {
+    //   let each_comments = {};
+    //   each_comments.user = i.username;
+    //   each_comments.comment = i.comment_text;
+    //   temp_pro[0][0].comments.push(each_comments);
+    // }
+
+    // return temp_pro[0][0];
+
     const temp_pro = await db.sequelize.query(
       "select *, p.id from products p " +
-        'left JOIN comments c ON "productId"=$1 ' +
+        'left JOIN user_comments c ON "productId"=$1 ' +
+        'left JOIN raitings r ON "userCommentId"=c.id '+
         'left JOIN users u ON "userId"=u.id ' +
         "where p.id = $1",
       { bind: [product_id] }
@@ -20,6 +40,7 @@ class ProductService {
       let each_comments = {};
       each_comments.user = i.username;
       each_comments.comment = i.comment_text;
+      each_comments.raiting = i.raiting;
       temp_pro[0][0].comments.push(each_comments);
     }
 

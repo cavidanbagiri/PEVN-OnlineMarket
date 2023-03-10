@@ -1,6 +1,8 @@
 const db = require("../models");
+
 const UserModel = db.UserModel;
 const CommentModel = db.CommentModel;
+const RaitingsModel = db.RaitingModel;
 
 class UserService {
   // User Registration
@@ -20,13 +22,18 @@ class UserService {
   }
 
   static async addComments(comment_text) {
-    const addingComment = await CommentModel.create({
-      comment_text:"Good Computer. Recomended",
-      userId: 14,
-      productId: 2
-    });
+    // const addingComment = await CommentModel.create({
+    //   comment_text:"Not Bad, U can use for simple working",
+    //   userId: 16,
+    //   productId: 2
+    // });
 
-    return addingComment;
+    //return addingComment;
+    // const addingRaitings = await RaitingsModel.create({
+    //   raiting:4,
+    //   userCommentId: 3
+    // });
+    // return addingRaitings;
   }
 
 }

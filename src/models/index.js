@@ -9,6 +9,7 @@ const CommentModel = require('./model.comment');
 const BasketModel = require('./model.basket');
 const FavoriteModel = require('./model.favorites');
 const OrderModel = require('./model.order');
+const RaitingModel = require('./model.raiting');
 
 const sequelize = new Sequelize(
   dbConfig.Database,
@@ -50,30 +51,34 @@ db.CommentModel = CommentModel(sequelize, DataTypes, Model);
 db.BasketModel = BasketModel(sequelize, DataTypes, Model);
 db.FavoriteModel = FavoriteModel(sequelize, DataTypes, Model);
 db.OrderModel = OrderModel(sequelize, DataTypes, Model);
+db.RaitingModel = RaitingModel(sequelize, DataTypes, Model);
 
 // ******************************************* Create Relationsship **************************************** //
 
 // Product Category Model One To One
-db.CategoryModel.hasOne(db.ProductModel,{
-  foreignKey:'categoryId',
-});
+db.CategoryModel.hasOne(db.ProductModel,{ foreignKey: 'categoryId' });
 db.ProductModel.belongsTo(db.CategoryModel);
 
 
 // Comments Model Many to Many
-db.UserModel.belongsToMany(db.ProductModel, {through: db.CommentModel});
 db.ProductModel.belongsToMany(db.UserModel, {through: db.CommentModel});
+db.UserModel.belongsToMany(db.ProductModel, {through: db.CommentModel});
 
+// Raitings Model One To Many
+db.CommentModel.hasOne(db.RaitingModel);
+db.RaitingModel.belongsTo(db.CommentModel);
+// db.UserModel.belongsToMany(db.ProductModel, {through: db.RaitingModel});
+// db.ProductModel.belongsToMany(db.UserModel, {through: db.RaitingModel});
 
 // Basket Model Many to Many
 db.UserModel.belongsToMany(db.ProductModel, {through: db.BasketModel});
 db.ProductModel.belongsToMany(db.UserModel, {through: db.BasketModel});
 
-
+// Favorite Model Many to Many
 db.UserModel.belongsToMany(db.ProductModel, {through: db.FavoriteModel});
 db.ProductModel.belongsToMany(db.UserModel, {through: db.FavoriteModel});
 
-
+// Order Model Many to Many
 db.UserModel.belongsToMany(db.ProductModel, {through: db.OrderModel});
 db.ProductModel.belongsToMany(db.UserModel, {through: db.OrderModel});
 
