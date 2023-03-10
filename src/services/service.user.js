@@ -21,8 +21,8 @@ class UserService {
 
   static async addComments(comment_text) {
     const addingComment = await CommentModel.create({
-      comment_text:"This product is very good. Recomended",
-      userId: 15,
+      comment_text:"Good Computer. Recomended",
+      userId: 14,
       productId: 2
     });
 

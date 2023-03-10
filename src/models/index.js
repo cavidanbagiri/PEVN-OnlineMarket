@@ -59,16 +59,10 @@ db.CategoryModel.hasOne(db.ProductModel,{
 });
 db.ProductModel.belongsTo(db.CategoryModel);
 
-// Comment Model One To Many
-db.UserModel.hasMany(db.CommentModel,{
-  foreignKey: 'userId'
-});
-db.CommentModel.belongsTo(db.UserModel);
 
-db.ProductModel.hasMany(db.CommentModel,{
-  foreignKey: 'productId'
-});
-db.CommentModel.belongsTo(db.ProductModel);
+// Comments Model Many to Many
+db.UserModel.belongsToMany(db.ProductModel, {through: db.CommentModel});
+db.ProductModel.belongsToMany(db.UserModel, {through: db.CommentModel});
 
 
 // Basket Model Many to Many
@@ -83,7 +77,9 @@ db.ProductModel.belongsToMany(db.UserModel, {through: db.FavoriteModel});
 db.UserModel.belongsToMany(db.ProductModel, {through: db.OrderModel});
 db.ProductModel.belongsToMany(db.UserModel, {through: db.OrderModel});
 
-// // Sync sequelize;
+
+
+// Sync sequelize;
 db.sequelize
   .sync({ force: false })
   .then((_) => {
